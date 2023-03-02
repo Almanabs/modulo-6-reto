@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Crear nuevo cartón</title>
+</head>
+<body>
+    <ul>
+        <li><a href="listado.html">Listado de cartones</a></li>
+        <li><a href="nuevo.html">Nuevo cartón</a></li>
+        <li><a href="/">Volver al menú principal</a></li>
+        
+      </ul>
+    <h1>Crear nuevo cartón</h1>
+    <button id="newCardButton">Crear cartón</button>
+
+    <script>
+      const newCardButton = document.getElementById('newCardButton');
+      newCardButton.addEventListener('click', async () => {
+        const response = await fetch('/cartones', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ serialNumber: '', numbers: [] })
+        });
+        if (response.ok) {
+          alert('Cartón creado exitosamente');
+        } else {
+          alert('Ocurrió un error al crear el cartón');
+        }
+      });
+    </script>
+     <script src="index.js"></script>
+</body>
+</html>

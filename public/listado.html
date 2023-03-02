@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Listado de cartones</title>
+</head>
+<body>
+    <ul>
+        <li><a href="listado.html">Listado de cartones</a></li>
+        <li><a href="nuevo.html">Nuevo cartón</a></li>
+        <li><a href="/">Volver al menú principal</a></li>
+        
+      </ul>
+    <h1>Listado de cartones</h1>
+  <table>
+    <thead>
+      <tr>
+       
+      
+        
+      </tr>
+    </thead>
+    <tbody id="cartones">
+    </tbody>
+  </table>
+
+  <script>
+    fetch('/cartones')
+  .then(response => response.json())
+  .then(cartones => {
+    const cartonesContainer = document.getElementById('cartones');
+    for (const carton of cartones) {
+      const cartonDiv = document.createElement('div');
+      cartonDiv.classList.add('carton');
+      const serieP = document.createElement('p');
+      serieP.innerHTML = `Número de serie: ${carton.serie}`;
+      cartonDiv.appendChild(serieP);
+      for (const numero of carton.numeros) {
+        const numeroDiv = document.createElement('div');
+        numeroDiv.classList.add('numero');
+        numeroDiv.innerHTML = numero;
+        cartonDiv.appendChild(numeroDiv);
+      }
+      cartonesContainer.appendChild(cartonDiv);
+    }
+  });
+  for (const carton of cartones) {
+  const div = document.createElement('div');
+  div.classList.add('carton');
+  const h2 = document.createElement('h2');
+  h2.textContent = `Cartón ${carton.serie}`;
+  const ul = document.createElement('ul');
+  for (const numero of carton.numeros) {
+    const li = document.createElement('li');
+    li.textContent = numero;
+    ul.appendChild(li);
+  }
+  div.appendChild(h2);
+  div.appendChild(ul);
+  document.body.appendChild(div);
+}
+
+
+    
+  </script>
+  <script src="index.js"></script>
+</body>
+</html>
